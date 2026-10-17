@@ -1,17 +1,73 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        h1, h4 {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .search {
+            text-align: center;
+            margin-top: 25px;
+        }
+    </style>
 </head>
 <body>
 
 <h1>Employee Dashboard</h1>
 
-<a href="{% url 'add' %}">Add Employee</a>
-<br><br>
+<div style="text-align: center;">
+    <a href="{% url 'add' %}"
+       style="background: blue; padding: 10px; border-radius: 10px; color: white;">
+       + Add Employee
+    </a>
+</div>
 
-<table border="2" style="border-collapse: collapse;">
+<!-- Search by department -->
+<form method="GET" class="search">
+    <input type="text" name="department"
+           placeholder="Search by department"
+           value="{{ search }}">
+
+    <button type="submit">Search</button>
+    <a href="{% url 'home' %}">Clear</a>
+</form>
+
+<h4>Total Employees: {{ total }}</h4>
+
+<table>
     <tr>
         <th>Name</th>
         <th>Email</th>
@@ -29,10 +85,10 @@
         <td>{{ emp.salary }}</td>
         <td>{{ emp.joining_date }}</td>
         <td>
-            <a href="{% url 'edit' emp.id %}" style="padding: 10px;">Edit</a>
+            <a href="{% url 'edit' emp.id %}">Edit</a>
 
-            <form action="{% url 'delete' emp.id %}" method="POST"
-                  style="display:inline; padding: 10px;">
+            <form action="{% url 'delete' emp.id %}"
+                  method="POST" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit">Delete</button>
             </form>
@@ -43,7 +99,6 @@
         <td colspan="6">No employees found.</td>
     </tr>
     {% endfor %}
-
 </table>
 
 </body>

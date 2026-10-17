@@ -13,7 +13,9 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button type="submit">Add Employee</button>
+        <button type="submit" style="margin: 10px;">Add Employee</button>
+        
     </form>
+    <a href="{% url 'home' %}" style="padding: 10px;">Back to Home</a>
 </body>
 </html>

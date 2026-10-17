@@ -1,14 +1,21 @@
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Employee
 from .forms import EmployeeForm
 
 
 def home(request):
+    search = request.GET.get('department', '')
+
     employees = Employee.objects.all()
+
+    if search:
+        employees = employees.filter(department__icontains=search)
 
     return render(request, 'home.html', {
         'employees': employees,
-        'total': employees.count()
+        'total': employees.count(),
+        'search': search
     })
 
 
