@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Employee</title>
+</head>
+<body>
+
+<h1>Edit Employee</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update</button>
+</form>
+
+<a href="{% url 'home' %}">Back to Home</a>
+
+</body>
+</html>
